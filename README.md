@@ -96,6 +96,8 @@ SubSave is a static single-page app, so any static host works. The build output 
 
 After the first deploy, add the production URL to Supabase's redirect allow-list (step 5 above).
 
+**Security headers and CI.** `vercel.json` (and `public/_headers` for Netlify) set a Content-Security-Policy, anti-framing, no-sniffing, referrer and HSTS headers. The CSP allows connections to `*.supabase.co`; if you use a Supabase custom domain, add it to `connect-src`. `.github/workflows/ci.yml` runs typecheck, tests and build on every push and pull request. Once you commit a `package-lock.json`, switch the workflow's install step to `npm ci`.
+
 Vite inlines `VITE_*` variables into the public bundle at build time. That is safe for the URL and anon key because Row Level Security is what protects the data, but it is exactly why a secret key must never go there.
 
 ## Reminders: what works and what does not

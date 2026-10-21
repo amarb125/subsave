@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    @apply bg-paper text-ink antialiased;
+    font-feature-settings: 'cv11', 'ss01';
+  }
+  /* Visible keyboard focus everywhere, without showing rings for mouse clicks. */
+  :focus-visible { outline: 2px solid theme('colors.brand.600'); outline-offset: 2px; }
+  input[type='number']::-webkit-inner-spin-button { display: none; }
+}
+
+@layer components {
+  .card { @apply rounded-2xl border border-paper-line bg-paper-card; }
+  .tabular { font-variant-numeric: tabular-nums; }
+}
+
+/* Mobile safe areas for the bottom navigation bar. */
+.safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+
+@media print {
+  @page { margin: 14mm; }
+  body { background: #fff; }
+  .card { break-inside: avoid; border-color: #ccc; }
+  a { text-decoration: none; color: inherit; }
+}
